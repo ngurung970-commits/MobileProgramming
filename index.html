@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mark Sheet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Student Mark Sheet</h2>
+    <form id="markForm">
+      <label>Subject 1: <input type="number" class="mark" min="0" max="100"></label>
+      <label>Subject 2: <input type="number" class="mark" min="0" max="100"></label>
+      <label>Subject 3: <input type="number" class="mark" min="0" max="100"></label>
+      <label>Subject 4: <input type="number" class="mark" min="0" max="100"></label>
+      <label>Subject 5: <input type="number" class="mark" min="0" max="100"></label>
+      <label>Subject 6: <input type="number" class="mark" min="0" max="100"></label>
+      <label>Subject 7: <input type="number" class="mark" min="0" max="100"></label>
+      <label>Subject 8: <input type="number" class="mark" min="0" max="100"></label>
+      <button type="button" onclick="calculate()">Submit</button>
+    </form>
+    <div id="result"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
