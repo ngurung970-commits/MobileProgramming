@@ -1,40 +1,45 @@
-function calculate() {
-  const inputs = document.querySelectorAll('.mark');
-  let total = 0;
-  let valid = true;
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-  inputs.forEach(input => {
-    const val = Number(input.value);
-    if (input.value === '' || val < 0 || val > 100) {
-      valid = false;
-    }
-    total += val;
+const firebaseConfig = {
+  apiKey: "AIzaSyCIaa8AOeRtHrTQappPAlLoYwHL06SHwAs",
+  authDomain: "myapp-4b932.firebaseapp.com",
+  databaseURL: "https://myapp-4b932-default-rtdb.firebaseio.com",
+  projectId: "myapp-4b932",
+  storageBucket: "myapp-4b932.firebasestorage.app",
+  messagingSenderId: "174828203725",
+  appId: "1:174828203725:web:0c03bd322d9a3a674f8384"
+};
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+document.getElementById("userForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  // Get values
+  const id = document.getElementById("id").value;
+  const firstName = document.getElementById("firstName").value;
+  const lastName = document.getElementById("lastName").value;
+  const address = document.getElementById("address").value;
+  const phone = document.getElementById("phone").value;
+  const message = document.getElementById("message").value;
+
+  // Save data to Firebase
+  set(ref(db, "users/" + id), {
+    firstName: firstName,
+    lastName: lastName,
+    address: address,
+    phone: phone,
+    message: message
+  })
+  .then(() => {
+    alert("Data saved successfully!");
+    document.getElementById("userForm").reset();
+  })
+  .catch((error) => {
+    alert("Error: " + error);
   });
 
-  const result = document.getElementById('result');
+});
 
-  if (!valid) {
-    result.style.color = 'orange';
-    result.textContent = 'Please enter valid marks (0–100) for all subjects.';
-    return;
-  }
 
-  result.textContent = `Total: ${total} — `;
-
-  if (total < 400) {
-    result.style.color = 'red';
-    result.textContent += 'Fail';
-  } else if (total < 500) {
-    result.style.color = '#555';
-    result.textContent += 'Third Division';
-  } else if (total < 600) {
-    result.style.color = '#555';
-    result.textContent += 'Second Division';
-  } else if (total < 700) {
-    result.style.color = '#2255cc';
-    result.textContent += 'First Division';
-  } else {
-    result.style.color = 'green';
-    result.textContent += 'Distinction';
-  }
-}
